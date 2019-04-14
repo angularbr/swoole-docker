@@ -5,9 +5,16 @@ Servidor swoole php + lumen +docker em 5 minutos.
 Uma leitura [rapida](https://morettic.com.br/wp2/swoole-php-extensao/)
 
 # Intalação
-Necessário que ja tenha  o `composer`, `git` e `docker descktop` já instalados.
-* Lumen microframeworks
+Necessário que ja tenham  `composer`, `git` e `docker descktop` instalados.
+
+* Clonando arquivos do docker para intalação do container
+```shell
+$ git clone https://github.com/angularbr/swoole-docker.git 
+
 ```
+* Instalalndo Lumen microframeworks
+```
+$ cd swoole-docker
 $ composer create-project --prefer-dist laravel/lumen my-project
 ```
 ### Adicionar o pacote `laravel-swoole` com o composer:
@@ -19,11 +26,6 @@ Anexe a seguinte linha a `bootstrap/app.php`:
 ```php
 $ app->register( SwooleTW\Http\LumenServiceProvider::class );
 ```
-* Clonando arquivos do docker para intalação do container.
-```shell
-$ cd  /my-project
-$ git clone https://github.com/angularbr/swoole-docker.git .
-```
 * Criando a imagen e container no docker.
 ```shell
 $ docker build  --build-arg appname="my-project" -t "swoole-lumen:server" .
@@ -33,7 +35,7 @@ Observe que a ENV:`appname` deve ser o nome da pasta do projeto criado com `comp
 ```shell
 $ docker run -d -p 3000:80 --name s-server swoole-lumen:dev
 ```
-Nessa linha, rodamos o container na porta `3000`, o argumento `--name` é muito importante esse e nome do container precisamos disso pra que possamos executar `artisan` dentro do container.
+Nessa linha, rodamos o container na porta `3000`, o argumento `--name` é muito importante este e nome do container, precisamos disso para que possamos executar `artisan` dentro do container.
 * Pronto, executado swoole server, note que podemos acessar tanto `php` quanto o `artisan` dentro do container (`s-server`).
  ```shell
 $ docker exec s-server php artisan swoole:http start
