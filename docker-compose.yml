@@ -1,0 +1,25 @@
+version: '3'
+services:
+  swooler-server-php:
+    build:
+      context: .
+    container_name: swoole
+    ports:
+        - "3000:80" 
+    volumes:
+        - .:/var/www
+    links:
+      - postgre-server
+  postgre-server:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: 'secret'
+    volumes:
+      - database_data:/var/lib/postgresql/data
+      
+volumes:
+  database_data:
+    driver: local
