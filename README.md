@@ -33,18 +33,25 @@ $ docker build  --build-arg appname="my-project" -t "swoole-lumen:server" .
 Observe que a ENV:`appname` deve ser o nome da pasta do projeto criado com `composer create-project`
 * Rodando container 
 ```shell
-$ docker run -d -p 3000:80 --name s-server swoole-lumen:dev
+$ docker run -d -p 3000:80 --name dev-server swoole-lumen:dev
 ```
 Nessa linha, rodamos o container na porta `3000`, o argumento `--name` é muito importante este e nome do container, precisamos disso para que possamos executar `artisan` dentro do container.
-* Pronto, executado swoole server, note que podemos acessar tanto `php` quanto o `artisan` dentro do container (`s-server`).
+* Pronto, executado swoole server, note que podemos acessar tanto `php` quanto o `artisan` dentro do container (`dev-server`).
  ```shell
-$ docker exec s-server php artisan swoole:http start
+$ docker exec dev-server php artisan swoole:http start
 ```
  1) Restart swoole
 ```shell
-$ docker exec s-server php artisan swoole:http restart
+$ docker exec dev-server php artisan swoole:http restart
 ```
 2) Usando o `artisan`
 ```shell
-$ docker exec s-server php artisan --version
+$ docker exec dev-server php artisan --version
 ```
+![Drag Racing](img-run.png)
+# Acessando
+
+Ready to work: http://localhost:3000/
+
+Internamente o servidor roda na porta 80;
+mas mudamos a porta do container para 3000 com docker run.
